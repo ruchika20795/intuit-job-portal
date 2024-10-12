@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Login from "./components/Login";
-import JobPortal from "./JobPortal";
+import JobPortal from "./components/JobPortal";
 import "./App.css";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";

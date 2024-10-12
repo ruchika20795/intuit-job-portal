@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { mockUsers } from './utils/mockUsers';
+import { mockUsers } from '../utils/mockUsers';
 
 const Applications = () => {
   const location = useLocation();

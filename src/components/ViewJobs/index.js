@@ -4,7 +4,7 @@ import { postedJobs } from "../../utils/mockPostedJobs";
 import { UserContext } from "../../App";
 import "./ViewJobs.css";
 
-const PostedJobs = () => {
+const ViewJobs = () => {
   const { user, userRole } = useContext(UserContext);
   const navigate = useNavigate();
   const [filter, setFilter] = useState("");
@@ -104,4 +104,4 @@ const PostedJobs = () => {
   );
 };
 
-export default PostedJobs;
+export default ViewJobs;

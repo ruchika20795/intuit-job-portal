@@ -1,25 +1,16 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Freelancer from "./Freelancer";
-import EmployerDashboard from "./components/EmployerDashboard";
+import EmployerDashboard from "./EmployerDashboard";
 import Applications from "./Applications";
 import UserProfile from "./UserProfile";
-import PostJob from "./components/PostJob";
-import ViewJobs from "./components/ViewJobs";
+import PostJob from "./PostJob";
+import ViewJobs from "./ViewJobs";
+import FreelancerDashboard from "./FreelancerDashboard";
 
 const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
   return (
     <Routes>
-      <Route
-        path='/freelancer'
-        element={
-          <Freelancer
-            jobs={jobs}
-            userProfile={userProfile}
-            updateUserProfile={updateUserProfile}
-          />
-        }
-      />
+      <Route path='/freelancer' element={<FreelancerDashboard />} />
       <Route
         path='/employer'
         element={<EmployerDashboard addJob={addJob} jobs={jobs} />}
