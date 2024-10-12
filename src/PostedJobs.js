@@ -1,42 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockUsers } from './utils/mockUsers'; // Import mock user data
+import { postedJobs } from './utils/mockPostedJobs'; // Import mock job data
 
 const PostedJobs = () => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
-  // Mock data for posted jobs
-  const postedJobs = [
-    {
-      id: 1,
-      title: "Frontend Developer",
-      description: "We are looking for a Frontend Developer to join our team.",
-      requirements: "Proficiency in JavaScript, React, and CSS.",
-      tags: ["JavaScript", "React", "CSS"],
-      companyName: "Tech Innovations",
-      contactInfo: "hr@techinnovations.com",
-      applications: [
-        { id: 1, name: "Alice", email: "alice@example.com" },
-        { id: 2, name: "Bob", email: "bob@example.com" },
-      ],
-    },
-    {
-      id: 2,
-      title: "Backend Developer",
-      description: "Seeking a Backend Developer for our services.",
-      requirements: "Experience with Node.js and Express.",
-      tags: ["Node.js", "Express", "MongoDB"],
-      companyName: "Web Solutions",
-      contactInfo: "hr@websolutions.com",
-      applications: [
-        { id: 3, name: "Charlie", email: "charlie@example.com" },
-      ],
-    },
-    // Add more jobs as needed
-  ];
 
   const filteredJobs = postedJobs.filter(job => job.title.toLowerCase().includes(filter.toLowerCase()));
 
