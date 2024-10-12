@@ -4,7 +4,7 @@ import { postedJobs } from "../../utils/mockPostedJobs";
 import { UserContext } from "../../App";
 import "./ViewJobs.css";
 
-const ViewJobs = () => {
+const PostedJobs = () => {
   const { user, userRole } = useContext(UserContext);
   const navigate = useNavigate();
   const [filter, setFilter] = useState("");
@@ -40,9 +40,18 @@ const ViewJobs = () => {
   };
 
   const viewApplications = (job) => {
-    // Navigate to applicant profile (you can customize this route)
-    // Here we can pass job applications as state to the applicant profile page
-    navigate("/applications", { state: { applications: job.applications } });
+    navigate(`/job/${job.id}/applications`, {
+      state: { applications: job.applications },
+    });
+  };
+
+  const applyForJob = (job) => {
+    // Implement apply functionality
+    console.log(`Applying for job: ${job.title}`);
+  };
+
+  const goToJobDetails = (job) => {
+    navigate(`/job-details/${job.id}`, { state: { job } });
   };
 
   return (
@@ -60,22 +69,35 @@ const ViewJobs = () => {
             <th>Job Title</th>
             <th>Company</th>
             <th>Tags</th>
-            <th>Applications</th>
-            <th>Actions</th>
+            {userRole !== "Freelancer" && <th>Applications</th>}
+            {userRole === "Freelancer" && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
           {currentJobs.map((job) => (
             <tr key={job.id}>
-              <td>{job.title}</td>
+              <td>
+                <span className='link-text' onClick={() => goToJobDetails(job)}>
+                  {job.title}
+                </span>
+              </td>
               <td>{job.companyName}</td>
               <td>{job.tags.join(", ")}</td>
-              <td>{job.applications.length}</td>
-              <td>
-                <button onClick={() => viewApplications(job)}>
-                  View Applications
-                </button>
-              </td>
+              {userRole !== "Freelancer" && (
+                <td>
+                  <span
+                    className='link-text'
+                    onClick={() => viewApplications(job)}
+                  >
+                    {job.applications.length}
+                  </span>
+                </td>
+              )}
+              {userRole === "Freelancer" && (
+                <td>
+                  <button onClick={() => applyForJob(job)}>Apply</button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
@@ -104,4 +126,4 @@ const ViewJobs = () => {
   );
 };
 
-export default ViewJobs;
+export default PostedJobs;

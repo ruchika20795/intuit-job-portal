@@ -6,6 +6,7 @@ import UserProfile from "./UserProfile";
 import PostJob from "./PostJob";
 import ViewJobs from "./ViewJobs";
 import FreelancerDashboard from "./FreelancerDashboard";
+import JobDetails from "./JobDetails";
 
 const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
   return (
@@ -15,10 +16,11 @@ const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
         path='/employer'
         element={<EmployerDashboard addJob={addJob} jobs={jobs} />}
       />
-      <Route path='/applications' element={<Applications />} />
+      <Route path='/job/:id/applications' element={<Applications />} />
       <Route path='/user-profile' element={<UserProfile />} />
       <Route path='/post-job' element={<PostJob />} />
       <Route path='/view-jobs' element={<ViewJobs />} />
+      <Route path='/job-details/:id' element={<JobDetails />} />
     </Routes>
   );
 };

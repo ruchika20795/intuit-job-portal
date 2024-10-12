@@ -1,0 +1,12 @@
+.link-text {
+  color: #007bff; /* Bootstrap primary color */
+  cursor: pointer;
+  border-bottom: 1px dashed #007bff; /* Underline effect */
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.link-text:hover {
+  color: #0056b3; /* Darker shade on hover */
+  border-bottom: 1px solid #0056b3; /* Solid underline on hover */
+  text-decoration: none; /* Remove default underline */
+}
