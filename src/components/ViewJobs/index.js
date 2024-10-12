@@ -1,24 +1,41 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postedJobs } from "../../utils/mockPostedJobs";
 import { UserContext } from "../../App";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./ViewJobs.css";
 
-const PostedJobs = () => {
+const ViewJobs = () => {
   const { user, userRole } = useContext(UserContext);
   const navigate = useNavigate();
   const [filter, setFilter] = useState("");
+  const [debouncedFilter, setDebouncedFilter] = useState(filter);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  // Debounce for search filter
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedFilter(filter);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [filter]);
+
   const filteredJobs = postedJobs.filter((job) => {
+    const searchTerm = debouncedFilter.toLowerCase();
+    const isTitleMatch = job.title.toLowerCase().includes(searchTerm);
+    const isTagMatch = job.tags.some((tag) =>
+      tag.toLowerCase().includes(searchTerm)
+    );
+
     if (userRole === "Employer") {
-      return (
-        job.createdBy === user &&
-        job.title.toLowerCase().includes(filter.toLowerCase())
-      );
+      return job.createdBy === user && (isTitleMatch || isTagMatch);
     } else {
-      return job.title.toLowerCase().includes(filter.toLowerCase());
+      return isTitleMatch || isTagMatch;
     }
   });
 
@@ -46,8 +63,8 @@ const PostedJobs = () => {
   };
 
   const applyForJob = (job) => {
-    // Implement apply functionality
-    console.log(`Applying for job: ${job.title}`);
+    // Show success toast message
+    toast.success(`Successfully applied for ${job.title}`);
   };
 
   const goToJobDetails = (job) => {
@@ -56,10 +73,11 @@ const PostedJobs = () => {
 
   return (
     <div className='posted-jobs'>
+      <ToastContainer />
       <h2>{userRole === "Freelancer" ? "View Jobs" : "Posted Jobs"}</h2>
       <input
         type='text'
-        placeholder='Filter by title...'
+        placeholder='Filter by title or tags...'
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />
@@ -102,7 +120,6 @@ const PostedJobs = () => {
           ))}
         </tbody>
       </table>
-
       {totalPages > 1 && (
         <div className='pagination'>
           <button onClick={goToPreviousPage} disabled={currentPage === 1}>
@@ -126,4 +143,4 @@ const PostedJobs = () => {
   );
 };
 
-export default PostedJobs;
+export default ViewJobs;
