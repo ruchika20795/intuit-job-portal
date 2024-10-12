@@ -157,3 +157,87 @@ th {
 .pagination button:hover {
   background-color: #0056b3;
 }
+
+.employer {
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  width: 30%;
+  cursor: pointer;
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+}
+
+.posted-jobs {
+  padding: 20px;
+}
+
+.posted-jobs input {
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.posted-jobs table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.posted-jobs th, .posted-jobs td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.posted-jobs th {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+}
+
