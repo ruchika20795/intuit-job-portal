@@ -23,7 +23,7 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, userRole }}>
       <Router>
         <div className='App'>
           <h1>Job Portal</h1>

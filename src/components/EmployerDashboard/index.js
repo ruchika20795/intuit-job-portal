@@ -13,7 +13,7 @@ const EmployerDashboard = () => {
           <h3>Post a New Job</h3>
           <p>Create a job listing for freelancers.</p>
         </div>
-        <div className="card" onClick={() => navigate('/view-posted-jobs')}>
+        <div className="card" onClick={() => navigate('/view-jobs')}>
           <h3>View Posted Jobs</h3>
           <p>See and manage your posted jobs.</p>
         </div>

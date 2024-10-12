@@ -2,20 +2,25 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postedJobs } from "../../utils/mockPostedJobs";
 import { UserContext } from "../../App";
-import "./PostedJobs.css";
+import "./ViewJobs.css";
 
 const PostedJobs = () => {
-  const { user } = useContext(UserContext);
+  const { user, userRole } = useContext(UserContext);
   const navigate = useNavigate();
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const filteredJobs = postedJobs.filter(
-    (job) =>
-      job.createdBy === user &&
-      job.title.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filteredJobs = postedJobs.filter((job) => {
+    if (userRole === "Employer") {
+      return (
+        job.createdBy === user &&
+        job.title.toLowerCase().includes(filter.toLowerCase())
+      );
+    } else {
+      return job.title.toLowerCase().includes(filter.toLowerCase());
+    }
+  });
 
   const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
   const indexOfLastJob = currentPage * itemsPerPage;
@@ -42,7 +47,7 @@ const PostedJobs = () => {
 
   return (
     <div className='posted-jobs'>
-      <h2>Posted Jobs</h2>
+      <h2>{userRole === "Freelancer" ? "View Jobs" : "Posted Jobs"}</h2>
       <input
         type='text'
         placeholder='Filter by title...'

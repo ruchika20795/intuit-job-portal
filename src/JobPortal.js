@@ -5,7 +5,7 @@ import EmployerDashboard from "./components/EmployerDashboard";
 import Applications from "./Applications";
 import UserProfile from "./UserProfile";
 import PostJob from "./components/PostJob";
-import PostedJobs from "./components/PostedJobs";
+import ViewJobs from "./components/ViewJobs";
 
 const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
   return (
@@ -27,7 +27,7 @@ const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
       <Route path='/applications' element={<Applications />} />
       <Route path='/user-profile' element={<UserProfile />} />
       <Route path='/post-job' element={<PostJob />} />
-      <Route path='/view-posted-jobs' element={<PostedJobs />} />
+      <Route path='/view-jobs' element={<ViewJobs />} />
     </Routes>
   );
 };
