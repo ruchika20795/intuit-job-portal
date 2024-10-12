@@ -30,18 +30,23 @@ const mockJobs = [
 
 const Employer = ({ addJob }) => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [jobDescription, setJobDescription] = useState(null);
   const [requirements, setRequirements] = useState('');
   const [tags, setTags] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [contactInfo, setContactInfo] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!jobDescription) {
+        setError('Please upload a job description document.');
+        return;
+      }
     const newJob = {
       title,
-      description,
+      jobDescription,
       requirements,
       tags: tags.split(',').map(tag => tag.trim()),
       companyName,
@@ -52,13 +57,24 @@ const Employer = ({ addJob }) => {
     resetForm();
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size <= 16384) { // 16KB in bytes
+      setJobDescription(file);
+      setError('');
+    } else {
+      setError('File size must be 16KB or less.');
+    }
+  };
+
   const resetForm = () => {
     setTitle('');
-    setDescription('');
+    setJobDescription(null);
     setRequirements('');
     setTags('');
     setCompanyName('');
     setContactInfo('');
+    setError('');
   };
 
   const viewApplications = (job) => {
@@ -79,13 +95,11 @@ const Employer = ({ addJob }) => {
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-        <textarea
-          placeholder="Job Description (max 16KB)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          maxLength={16384}
-          required
-        ></textarea>
+        <div>
+          <label>Job Description (max 16KB):</label>
+          <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} required />
+          {error && <p className="error">{error}</p>}
+        </div>
         <textarea
           placeholder="Job Requirements"
           value={requirements}
