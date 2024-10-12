@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./PostJob.css";
 
 const PostJob = () => {
   const [title, setTitle] = useState("");
@@ -105,7 +106,9 @@ const PostJob = () => {
             required
           />
         </div>
-        <button type='submit'>Post Job</button>
+        <button type='submit' className='post-job'>
+          <i className='fas fa-paper-plane' />Post Job
+        </button>
       </form>
     </div>
   );

@@ -1,0 +1,24 @@
+.employer {
+    padding: 20px;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 30%;
+    cursor: pointer;
+    text-align: center;
+    transition: box-shadow 0.3s;
+    background-color: white;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }

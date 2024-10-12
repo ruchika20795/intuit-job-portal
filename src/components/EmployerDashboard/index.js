@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import PostedJobs from './PostedJobs'; // Import the PostedJobs component
+import './EmployerDashboard.css';
 
-const Employer = () => {
+const EmployerDashboard = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,4 +22,4 @@ const Employer = () => {
   );
 };
 
-export default Employer;
+export default EmployerDashboard;

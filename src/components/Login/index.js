@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const Login = ({ setUserRole }) => {
   const [role, setRole] = useState('');
@@ -36,10 +37,9 @@ const Login = ({ setUserRole }) => {
   return (
     <div className="login">
       <h2><i className="fas fa-user-circle icon"></i>Login</h2>
-      <label>
-        Select Role:
+      <label className="role-selection">
         <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="">Select...</option>
+          <option value="">Select role</option>
           <option value="Freelancer">Freelancer</option>
           <option value="Employer">Employer</option>
         </select>
@@ -61,7 +61,7 @@ const Login = ({ setUserRole }) => {
         required
       />
       {errors.password && <span className="error">{errors.password}</span>}
-      <button onClick={handleLogin}><i className="fas fa-sign-in-alt"></i>Login</button>
+      <button onClick={handleLogin} className="login-button"><i className="fas fa-sign-in-alt"></i>Login</button>
     </div>
   );
 };

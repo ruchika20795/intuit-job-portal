@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockUsers } from './utils/mockUsers'; // Import mock user data
-import { postedJobs } from './utils/mockPostedJobs'; // Import mock job data
+import { mockUsers } from '../../utils/mockUsers';
+import { postedJobs } from '../../utils/mockPostedJobs';
+import './PostedJobs.css';
 
 const PostedJobs = () => {
   const navigate = useNavigate();
