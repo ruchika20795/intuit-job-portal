@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { UserContext } from '../../App';
 
 const Login = ({ setUserRole }) => {
   const [role, setRole] = useState('');
@@ -8,6 +9,7 @@ const Login = ({ setUserRole }) => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,6 +32,7 @@ const Login = ({ setUserRole }) => {
     if (Object.keys(validationErrors).length === 0) {
       // Simulate successful login
       setUserRole(role);
+      setUser(username);
       navigate(role === 'Freelancer' ? '/freelancer' : '/employer');
     }
   };

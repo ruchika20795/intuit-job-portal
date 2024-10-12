@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { mockUsers } from '../../utils/mockUsers';
-import { postedJobs } from '../../utils/mockPostedJobs';
-import './PostedJobs.css';
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { postedJobs } from "../../utils/mockPostedJobs";
+import { UserContext } from "../../App";
+import "./PostedJobs.css";
 
 const PostedJobs = () => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const filteredJobs = postedJobs.filter(job => job.title.toLowerCase().includes(filter.toLowerCase()));
+  const filteredJobs = postedJobs.filter(
+    (job) =>
+      job.createdBy === user &&
+      job.title.toLowerCase().includes(filter.toLowerCase())
+  );
 
   const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
   const indexOfLastJob = currentPage * itemsPerPage;
@@ -29,23 +34,18 @@ const PostedJobs = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const viewProfile = (applicantId) => {
-    const user = mockUsers.find((user) => user.id === applicantId);
-    navigate('/user-profile', { state: { user } });
-  };
-
   const viewApplications = (job) => {
     // Navigate to applicant profile (you can customize this route)
     // Here we can pass job applications as state to the applicant profile page
-    navigate('/applications', { state: { applications: job.applications } });
+    navigate("/applications", { state: { applications: job.applications } });
   };
 
   return (
-    <div className="posted-jobs">
+    <div className='posted-jobs'>
       <h2>Posted Jobs</h2>
       <input
-        type="text"
-        placeholder="Filter by title..."
+        type='text'
+        placeholder='Filter by title...'
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
       />
@@ -64,7 +64,7 @@ const PostedJobs = () => {
             <tr key={job.id}>
               <td>{job.title}</td>
               <td>{job.companyName}</td>
-              <td>{job.tags.join(', ')}</td>
+              <td>{job.tags.join(", ")}</td>
               <td>{job.applications.length}</td>
               <td>
                 <button onClick={() => viewApplications(job)}>
@@ -77,7 +77,7 @@ const PostedJobs = () => {
       </table>
 
       {totalPages > 1 && (
-        <div className="pagination">
+        <div className='pagination'>
           <button onClick={goToPreviousPage} disabled={currentPage === 1}>
             Previous
           </button>
@@ -85,7 +85,7 @@ const PostedJobs = () => {
             <button
               key={number + 1}
               onClick={() => handlePageChange(number + 1)}
-              className={currentPage === number + 1 ? 'active' : ''}
+              className={currentPage === number + 1 ? "active" : ""}
             >
               {number + 1}
             </button>
