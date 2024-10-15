@@ -7,7 +7,7 @@ const Login = ({ setUserRole }) => {
   const [role, setRole] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any>({});
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
@@ -22,7 +22,7 @@ const Login = ({ setUserRole }) => {
   };
 
   const handleLogin = () => {
-    let validationErrors = {};
+    let validationErrors: any = {};
     if (!role) validationErrors.role = "Role is required.";
     if (!username || !validateEmail(username)) validationErrors.username = "Enter a valid email.";
     if (!password || !validatePassword(password)) validationErrors.password = "Password must be at least 8 characters, include an uppercase letter, a number, and a special character.";
@@ -64,7 +64,9 @@ const Login = ({ setUserRole }) => {
         required
       />
       {errors.password && <span className="error">{errors.password}</span>}
-      <button onClick={handleLogin} className="login-button"><i className="fas fa-sign-in-alt"></i>Login</button>
+      <div className="action-cta">
+        <button onClick={handleLogin} className="login-button"><i className="fas fa-sign-in-alt"></i>Login</button>
+      </div>
     </div>
   );
 };

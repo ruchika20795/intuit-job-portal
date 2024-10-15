@@ -1,8 +1,10 @@
 import React, { createContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "./components/Login/index.tsx";
 import JobPortal from "./components/JobPortal";
 import "./App.css";
+import { ThemeProvider } from "./context/ThemeContext";
+import Header from "./components/Header";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -22,23 +24,36 @@ function App() {
     setJobs([...jobs, job]);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    setUserRole(null);
+    setUserProfile({
+      skills: [],
+      githubUsername: "",
+      projects: [],
+    });
+
+  };
+
   return (
     <UserContext.Provider value={{ user, setUser, userRole }}>
-      <Router>
-        <div className='App'>
-          <h1>Job Portal</h1>
-          {!userRole ? (
-            <Login setUserRole={setUserRole} />
-          ) : (
-            <JobPortal
-              jobs={jobs}
-              addJob={addJob}
-              userProfile={userProfile}
-              updateUserProfile={setUserProfile}
-            />
-          )}
-        </div>
-      </Router>
+      <ThemeProvider>
+        <Router>
+          <div className='App'>
+            <Header user={user} onLogout={handleLogout} />
+            {!userRole ? (
+              <Login setUserRole={setUserRole} />
+            ) : (
+              <JobPortal
+                jobs={jobs}
+                addJob={addJob}
+                userProfile={userProfile}
+                updateUserProfile={setUserProfile}
+              />
+            )}
+          </div>
+        </Router>
+      </ThemeProvider>
     </UserContext.Provider>
   );
 }
