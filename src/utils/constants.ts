@@ -1,6 +1,6 @@
-export const UserRoles = {
-  Freelancer: "Freelancer",
-  Employer: "Employer",
+export enum UserRoles {
+  Freelancer = "Freelancer",
+  Employer = "Employer",
 };
 
 export enum Theme {

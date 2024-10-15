@@ -5,6 +5,7 @@ import { UserContext } from "../../App";
 import { UserRoles } from "../../utils/constants";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { User } from "../../utils/types";
 
 const FontAwesomeIcon = require('@fortawesome/react-fontawesome').FontAwesomeIcon;
 
@@ -28,7 +29,7 @@ const skillsOptions = [
 const UserProfile = () => {
   const location = useLocation();
 
-  const { user } = location.state || {};
+  const { user } = location.state as { user: User };
   const { userRole } = useContext(UserContext);
 
   const [isEditing, setIsEditing] = useState(false);

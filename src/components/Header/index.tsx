@@ -3,10 +3,17 @@ import "./Header.css";
 import { faMoon, faSun, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../context/ThemeContext";
 
-const FontAwesomeIcon = require('@fortawesome/react-fontawesome').FontAwesomeIcon;
+const FontAwesomeIcon =
+  require("@fortawesome/react-fontawesome").FontAwesomeIcon;
 
-function Header({ user, onLogout }) {
-const { theme, toggleTheme } = useContext(ThemeContext);
+interface HeaderProps {
+  user: string | null;
+  onLogout: VoidFunction;
+}
+
+function Header(props: HeaderProps) {
+  const { user, onLogout } = props;
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const confirmLogout = () => {

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Login from "./components/Login/index";
 import JobPortal from "./components/JobPortal";
@@ -6,64 +6,50 @@ import "./App.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import Header from "./components/Header/index";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Job } from "./utils/types.ts";
+import { Job } from "./utils/types";
+import { UserRoles } from "./utils/constants";
 
 export interface UserContextProps {
-  user: any;
-  setUser: any;
-  userRole: any;
+  userName: string | null;
+  setUserName: (user: string | null) => void;
+  userRole: UserRoles;
 }
 
 export const UserContext = createContext<UserContextProps>({
-  user: null,
-  setUser: null,
-  userRole: null,
+  userName: null,
+  setUserName: () => {},
+  userRole: UserRoles.Freelancer,
 });
 
 function App() {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [userProfile, setUserProfile] = useState({
-    skills: [],
-    githubUsername: "",
-    projects: [],
-  });
-  const [userRole, setUserRole] = useState(null);
-  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(UserRoles.Freelancer);
+  const [userName, setUserName] = useState<string | null>(null);
 
-  const addJob = (job) => {
+  const addJob = (job: Job) => {
     setJobs([...jobs, job]);
   };
 
   const handleLogout = () => {
-    setUser(null);
-    setUserRole(null);
-    setUserProfile({
-      skills: [],
-      githubUsername: "",
-      projects: [],
-    });
+    setUserName(null);
+    setUserRole(UserRoles.Freelancer);
   };
 
   const content = (
     <Router>
       <div className='App'>
-        <Header user={user} onLogout={handleLogout} />
-        {!user ? (
+        <Header user={userName} onLogout={handleLogout} />
+        {!userName ? (
           <Login setUserRole={setUserRole} />
         ) : (
-          <JobPortal
-            jobs={jobs}
-            addJob={addJob}
-            userProfile={userProfile}
-            updateUserProfile={setUserProfile}
-          />
+          <JobPortal jobs={jobs} addJob={addJob} />
         )}
       </div>
     </Router>
   );
 
   return (
-    <UserContext.Provider value={{ user, setUser, userRole }}>
+    <UserContext.Provider value={{ userName, setUserName, userRole }}>
       <ThemeProvider children={content} />
     </UserContext.Provider>
   );

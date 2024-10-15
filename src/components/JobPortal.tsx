@@ -7,8 +7,15 @@ import PostJob from "./PostJob";
 import ViewJobs from "./ViewJobs";
 import FreelancerDashboard from "./FreelancerDashboard";
 import { JobDetails } from "./JobDetails/index";
+import { Job } from "../utils/types";
 
-const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
+interface JobPortalProps {
+  jobs: Job[];
+  addJob: (job: Job) => void;
+}
+
+const JobPortal = (props: JobPortalProps) => {
+  const { jobs, addJob } = props;
   return (
     <Routes>
       <Route path='/freelancer' element={<FreelancerDashboard />} />

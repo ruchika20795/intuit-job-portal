@@ -10,7 +10,7 @@ const PostJob = () => {
   const [contactInfo, setContactInfo] = useState("");
   const [error, setError] = useState("");
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<any>) => {
     const file = e.target.files[0];
     if (file && file.size <= 16384) {
       setJobDescription(file);
@@ -20,7 +20,7 @@ const PostJob = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (!jobDescription) {
       setError("Please upload a job description document.");
@@ -106,9 +106,10 @@ const PostJob = () => {
             required
           />
         </div>
-        <div className="submit-button">
+        <div className='submit-button'>
           <button type='submit' className='post-job-button'>
-            <i className='fas fa-paper-plane' />Post Job
+            <i className='fas fa-paper-plane' />
+            Post Job
           </button>
         </div>
       </form>

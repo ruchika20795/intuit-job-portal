@@ -14,6 +14,6 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "include": ["src, node_modules/@fortawesome/react-fontawesome"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { mockUsers } from "../../utils/mockUsers";
 import "./Applications.css";
@@ -27,7 +27,7 @@ const Applications = () => {
     indexOfLastApplication
   );
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
@@ -39,7 +39,7 @@ const Applications = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const viewProfile = (applicantId) => {
+  const viewProfile = (applicantId: number) => {
     const user = mockUsers.find((user) => user.id === applicantId);
     navigate("/user-profile", { state: { user } });
   };

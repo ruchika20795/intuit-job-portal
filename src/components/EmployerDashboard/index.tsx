@@ -1,8 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './EmployerDashboard.css';
+import { Job } from '../../utils/types';
 
-const EmployerDashboard = () => {
+interface EmployerDashboardProps {
+  addJob: (job: Job) => void;
+  jobs: Job[];
+}
+
+const EmployerDashboard = (props: EmployerDashboardProps) => {
   const navigate = useNavigate();
 
   return (

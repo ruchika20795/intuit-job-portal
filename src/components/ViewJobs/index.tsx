@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postedJobs } from "../../utils/mockPostedJobs";
 import { UserContext } from "../../App";
@@ -6,9 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import { UserRoles } from "../../utils/constants";
 import "react-toastify/dist/ReactToastify.css";
 import "./ViewJobs.css";
+import { Job } from "../../utils/types";
 
 const ViewJobs = () => {
-  const { user, userRole } = useContext(UserContext);
+  const { userName, userRole } = useContext(UserContext);
   const navigate = useNavigate();
   const [filter, setFilter] = useState("");
   const [debouncedFilter, setDebouncedFilter] = useState(filter);
@@ -34,7 +35,7 @@ const ViewJobs = () => {
     );
 
     if (userRole === UserRoles.Employer) {
-      return job.createdBy === user && (isTitleMatch || isTagMatch);
+      return job.createdBy === userName && (isTitleMatch || isTagMatch);
     } else {
       return isTitleMatch || isTagMatch;
     }
@@ -45,7 +46,7 @@ const ViewJobs = () => {
   const indexOfFirstJob = indexOfLastJob - itemsPerPage;
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
@@ -57,18 +58,18 @@ const ViewJobs = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const viewApplications = (job) => {
+  const viewApplications = (job: Job) => {
     navigate(`/job/${job.id}/applications`, {
       state: { applications: job.applications },
     });
   };
 
-  const applyForJob = (job) => {
+  const applyForJob = (job: Job) => {
     // Show success toast message
     toast.success(`Successfully applied for ${job.title}`);
   };
 
-  const goToJobDetails = (job) => {
+  const goToJobDetails = (job: Job) => {
     navigate(`/job-details/${job.id}`, { state: { job } });
   };
 
