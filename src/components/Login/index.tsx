@@ -41,7 +41,7 @@ const Login = ({ setUserRole }) => {
     <div className="login">
       <h2><i className="fas fa-user-circle icon"></i>Login</h2>
       <label className="role-selection">
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
+        <select className="login-input" value={role} onChange={(e) => setRole(e.target.value)}>
           <option value="">Select role</option>
           <option value="Freelancer">Freelancer</option>
           <option value="Employer">Employer</option>
@@ -49,6 +49,7 @@ const Login = ({ setUserRole }) => {
         {errors.role && <span className="error">{errors.role}</span>}
       </label>
       <input
+        className="login-input"
         type="text"
         placeholder="Email"
         value={username}
@@ -57,6 +58,7 @@ const Login = ({ setUserRole }) => {
       />
       {errors.username && <span className="error">{errors.username}</span>}
       <input
+        className="login-input"
         type="password"
         placeholder="Password"
         value={password}

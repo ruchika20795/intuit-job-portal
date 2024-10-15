@@ -54,9 +54,13 @@ const UserProfile = () => {
     // Optionally update the user state or notify the user of success
   };
 
+  const handleCancel = () => {
+    setErrors({});
+    setIsEditing(false);
+  };
+
   return (
     <div className='user-profile'>
-      
       <div className='user-details'>
         <h2>User Profile</h2>
         {isEditing ? (
@@ -99,7 +103,10 @@ const UserProfile = () => {
               onChange={(e) => setProjects(e.target.value)}
               placeholder='Projects (comma separated)'
             />
-            <button onClick={handleSave}>Save</button>
+            <div className='edit-actions-cta'>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
           </div>
         ) : (
           <div>
@@ -120,7 +127,9 @@ const UserProfile = () => {
             </p>
             {projects.length > 0 ? (
               <React.Fragment>
-                <h3>Projects:</h3>
+                <p>
+                  <strong>Projects:</strong>
+                </p>
                 <ul>
                   {projects.split(",").map((project, index) => (
                     <li key={index}>{project.trim()}</li>
@@ -134,9 +143,11 @@ const UserProfile = () => {
           </div>
         )}
       </div>
-      <div className='user-icon'>
-        <FontAwesomeIcon icon={faUserCircle} size='6x' />
-      </div>
+      {!isEditing && (
+        <div className='user-icon'>
+          <FontAwesomeIcon icon={faUserCircle} size='6x' />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,12 +1,146 @@
+/* Light Theme Variables */
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --table-header-bg: #ddd;
+  --table-row-bg: #fff;
+  --table-row-hover-bg: #f1f1f1;
+  --pagination-button-bg: #007bff;
+  --pagination-button-text: #fff;
+  --pagination-button-hover-bg: #0056b3;
+  --link-text-color: #0066cc;
+}
+
+/* Dark Theme Variables */
+body.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #f5f5f5;
+  --input-bg: #333;
+  --input-border: #555;
+  --table-header-bg: #444;
+  --table-row-bg: #2e2e2e;
+  --table-row-hover-bg: #3a3a3a;
+  --pagination-button-bg: #0056b3;
+  --pagination-button-text: #fff;
+  --pagination-button-hover-bg: #003f7f;
+  --link-text-color: #66b2ff;
+}
+
+/* Component Styles */
+.posted-jobs {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding: 2rem;
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  transition: color 0.3s;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th {
+  background-color: var(--table-header-bg);
+  color: var(--text-color);
+  padding: 10px;
+  text-align: left;
+}
+
+td {
+  background-color: var(--table-row-bg);
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+tr:hover td {
+  background-color: var(--table-row-hover-bg);
+}
+
 .link-text {
-  color: #007bff; /* Bootstrap primary color */
+  color: var(--link-text-color);
   cursor: pointer;
-  border-bottom: 1px dashed #007bff; /* Underline effect */
-  transition: color 0.3s, border-bottom 0.3s;
+  text-decoration: underline;
 }
 
 .link-text:hover {
-  color: #0056b3; /* Darker shade on hover */
-  border-bottom: 1px solid #0056b3; /* Solid underline on hover */
-  text-decoration: none; /* Remove default underline */
+  text-decoration: none;
+}
+
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--pagination-button-bg);
+  color: var(--pagination-button-text);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: var(--pagination-button-hover-bg);
+}
+
+.pagination button.active {
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #357abd;
 }

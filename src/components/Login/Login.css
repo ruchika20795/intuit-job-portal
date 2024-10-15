@@ -18,6 +18,13 @@ body.dark {
   --error-color: #ff6b6b;
 }
 
+
+.login {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--bg-color);
+}
+
 /* Login Container Styles */
 .login-container {
   max-width: 400px;
@@ -87,6 +94,11 @@ body.dark {
   margin-bottom: 15px;
 }
 
+.role-selection {
+  display: flex;
+  justify-content: space-between;
+}
+
 .role-selection label {
   flex: 1;
   font-size: 16px;
@@ -98,4 +110,15 @@ body.dark {
 .action-cta {
   width: 100%;
   text-align: center;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
