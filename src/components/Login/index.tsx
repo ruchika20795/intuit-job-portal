@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { UserContext } from '../../App';
+import { UserRoles } from "../../utils/constants";
 
 const Login = ({ setUserRole }) => {
   const [role, setRole] = useState('');
@@ -33,7 +34,7 @@ const Login = ({ setUserRole }) => {
       // Simulate successful login
       setUserRole(role);
       setUser(username);
-      navigate(role === 'Freelancer' ? '/freelancer' : '/employer');
+      navigate(role === UserRoles.Freelancer ? '/freelancer' : '/employer');
     }
   };
 
@@ -43,8 +44,8 @@ const Login = ({ setUserRole }) => {
       <label className="role-selection">
         <select className="login-input" value={role} onChange={(e) => setRole(e.target.value)}>
           <option value="">Select role</option>
-          <option value="Freelancer">Freelancer</option>
-          <option value="Employer">Employer</option>
+          <option value={UserRoles.Freelancer}>Freelancer</option>
+          <option value={UserRoles.Employer}>Employer</option>
         </select>
         {errors.role && <span className="error">{errors.role}</span>}
       </label>

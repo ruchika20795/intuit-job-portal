@@ -50,7 +50,7 @@ const { theme, toggleTheme } = useContext(ThemeContext);
           </button>
         )}
       </div>
-
+      {showLogoutConfirm && <div className='overlay' onClick={cancelLogout} />}
       {/* Logout Confirmation Modal */}
       {showLogoutConfirm && (
         <div className='logout-modal' role='dialog' aria-modal='true'>

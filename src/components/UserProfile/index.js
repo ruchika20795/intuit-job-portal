@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./UserProfile.css";
 import { UserContext } from "../../App";
+import { UserRoles } from "../../utils/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -137,7 +138,7 @@ const UserProfile = () => {
                 </ul>
               </React.Fragment>
             ) : null}
-            {userRole === "Freelancer" && (
+            {userRole === UserRoles.Freelancer && (
               <button onClick={() => setIsEditing(true)}>Edit Profile</button>
             )}
           </div>

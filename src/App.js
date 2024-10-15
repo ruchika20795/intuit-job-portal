@@ -5,7 +5,6 @@ import JobPortal from "./components/JobPortal";
 import "./App.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import Header from "./components/Header";
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export const UserContext = createContext();
@@ -40,7 +39,7 @@ function App() {
         <Router>
           <div className='App'>
             <Header user={user} onLogout={handleLogout} />
-            {!userRole ? (
+            {!user ? (
               <Login setUserRole={setUserRole} />
             ) : (
               <JobPortal

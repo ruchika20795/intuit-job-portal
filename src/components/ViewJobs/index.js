@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { postedJobs } from "../../utils/mockPostedJobs";
 import { UserContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
+import { UserRoles } from "../../utils/constants";
 import "react-toastify/dist/ReactToastify.css";
 import "./ViewJobs.css";
 
@@ -32,7 +33,7 @@ const ViewJobs = () => {
       tag.toLowerCase().includes(searchTerm)
     );
 
-    if (userRole === "Employer") {
+    if (userRole === UserRoles.Employer) {
       return job.createdBy === user && (isTitleMatch || isTagMatch);
     } else {
       return isTitleMatch || isTagMatch;
@@ -74,7 +75,7 @@ const ViewJobs = () => {
   return (
     <div className='posted-jobs'>
       <ToastContainer />
-      <h2>{userRole === "Freelancer" ? "View Jobs" : "Posted Jobs"}</h2>
+      <h2>{userRole === UserRoles.Freelancer ? "View Jobs" : "Posted Jobs"}</h2>
       <input
         type='text'
         placeholder='Filter by title or tags...'
@@ -87,8 +88,9 @@ const ViewJobs = () => {
             <th>Job Title</th>
             <th>Company</th>
             <th>Tags</th>
-            {userRole !== "Freelancer" && <th>Applications</th>}
-            {userRole === "Freelancer" && <th>Actions</th>}
+            <th>
+              {userRole === UserRoles.Freelancer ? "Actions" : "Applications"}
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -101,21 +103,18 @@ const ViewJobs = () => {
               </td>
               <td>{job.companyName}</td>
               <td>{job.tags.join(", ")}</td>
-              {userRole !== "Freelancer" && (
-                <td>
+              <td>
+                {userRole === UserRoles.Freelancer ? (
+                  <button onClick={() => applyForJob(job)}>Apply</button>
+                ) : (
                   <span
                     className='link-text'
                     onClick={() => viewApplications(job)}
                   >
                     {job.applications.length}
                   </span>
-                </td>
-              )}
-              {userRole === "Freelancer" && (
-                <td>
-                  <button onClick={() => applyForJob(job)}>Apply</button>
-                </td>
-              )}
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
