@@ -55,8 +55,10 @@ const { theme, toggleTheme } = useContext(ThemeContext);
       {showLogoutConfirm && (
         <div className='logout-modal' role='dialog' aria-modal='true'>
           <p>Are you sure you want to logout?</p>
-          <button onClick={handleLogout}>Yes</button>
-          <button onClick={cancelLogout}>Cancel</button>
+          <div className='action-container'>
+            <button onClick={handleLogout}>Yes</button>
+            <button onClick={cancelLogout}>Cancel</button>
+          </div>
         </div>
       )}
     </header>
