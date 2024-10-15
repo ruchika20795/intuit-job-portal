@@ -3,7 +3,7 @@ export const UserRoles = {
   Employer: "Employer",
 };
 
-export const Theme = {
-  Light: "light",
-  Dark: "dark",
+export enum Theme {
+  Light = "light",
+  Dark = "dark",
 };

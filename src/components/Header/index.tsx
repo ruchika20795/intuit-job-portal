@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import "./Header.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../context/ThemeContext";
+
+const FontAwesomeIcon = require('@fortawesome/react-fontawesome').FontAwesomeIcon;
 
 function Header({ user, onLogout }) {
 const { theme, toggleTheme } = useContext(ThemeContext);

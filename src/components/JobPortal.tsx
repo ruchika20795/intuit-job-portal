@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import EmployerDashboard from "./EmployerDashboard";
-import Applications from "./Applications";
+import Applications from "./Applications/index";
 import UserProfile from "./UserProfile";
 import PostJob from "./PostJob";
 import ViewJobs from "./ViewJobs";
 import FreelancerDashboard from "./FreelancerDashboard";
-import JobDetails from "./JobDetails";
+import { JobDetails } from "./JobDetails/index";
 
 const JobPortal = ({ jobs, addJob, userProfile, updateUserProfile }) => {
   return (

@@ -1,6 +1,6 @@
-// Mock jobs data pulled 
+import { Job } from "./types";
 
-export const postedJobs = [
+export const postedJobs: Job[] = [
     {
       id: 1,
       title: "Frontend Developer",

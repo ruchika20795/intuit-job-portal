@@ -3,8 +3,15 @@ import { useLocation } from "react-router-dom";
 import "./UserProfile.css";
 import { UserContext } from "../../App";
 import { UserRoles } from "../../utils/constants";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+
+const FontAwesomeIcon = require('@fortawesome/react-fontawesome').FontAwesomeIcon;
+
+interface FormErrors {
+  name?: string;
+  skills?: string;
+}
 
 const skillsOptions = [
   "React",
@@ -32,7 +39,7 @@ const UserProfile = () => {
   const [projects, setProjects] = useState(
     user?.projects.map((project) => project.name).join(", ")
   );
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
   if (!user) {
     return <p>User not found.</p>;
@@ -41,7 +48,7 @@ const UserProfile = () => {
   const handleSave = () => {
     // Form validation
     setErrors({}); // Clear previous errors
-    const newErrors = {};
+    const newErrors: FormErrors = {};
     if (!name) newErrors.name = "Name is required";
     if (selectedSkills.length === 0)
       newErrors.skills = "At least one skill is required";

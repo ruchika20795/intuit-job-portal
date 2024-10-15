@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { mockUsers } from "../../utils/mockUsers";
 import "./Applications.css";
+import { Application } from "../../utils/types";
 
 const Applications = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   // State to hold applications
-  const [applications, setApplications] = useState([]);
+  const [applications, setApplications] = useState<Application[]>([]);
 
   useEffect(() => {
     if (state && state.applications) {

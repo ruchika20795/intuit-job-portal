@@ -1,12 +1,24 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Theme } from "../utils/constants";
 
-export const ThemeContext = createContext();
+interface ThemeContextProps {
+  theme: Theme;
+  toggleTheme: () => void;
+}
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
+export const ThemeContext = createContext<ThemeContextProps>({
+  theme: Theme.Light,
+  toggleTheme: () => {},
+});
+
+interface ThemeProviderProps {
+  children: React.ReactNode;
+}
+
+export const ThemeProvider: React.FC<ThemeProviderProps>  = ({children}) => {
+  const [theme, setTheme] = useState<Theme>(() => {
     // Load theme from localStorage or default to 'light'
-    return localStorage.getItem("theme") || Theme.Light;
+    return (localStorage.getItem("theme") as Theme) || Theme.Light;
   });
 
   // Toggle between 'light' and 'dark' themes

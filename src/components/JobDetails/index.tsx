@@ -5,11 +5,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { UserContext } from "../../App";
 import { UserRoles } from "../../utils/constants";
 import "./JobDetails.css";
+import { Job } from "../../utils/types";
 
-const JobDetails = () => {
+export const JobDetails = () => {
   const { state } = useLocation();
   const { userRole } = useContext(UserContext);
-  const [jobDetails, setJobDetails] = useState(null);
+  const [jobDetails, setJobDetails] = useState<Job | null>(null);
 
   useEffect(() => {
     if (state?.job) {
@@ -50,5 +51,3 @@ const JobDetails = () => {
     </div>
   );
 };
-
-export default JobDetails;
