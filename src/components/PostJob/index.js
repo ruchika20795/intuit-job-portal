@@ -106,9 +106,11 @@ const PostJob = () => {
             required
           />
         </div>
-        <button type='submit' className='post-job'>
-          <i className='fas fa-paper-plane' />Post Job
-        </button>
+        <div className="submit-button">
+          <button type='submit' className='post-job-button'>
+            <i className='fas fa-paper-plane' />Post Job
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -92,7 +92,7 @@ tr:hover td {
 /* Pagination Styles */
 .pagination {
   display: flex;
-  justify-content: center;
+  justify-content: end;
   gap: 10px;
 }
 
