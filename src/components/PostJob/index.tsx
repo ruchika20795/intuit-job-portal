@@ -1,33 +1,52 @@
 import React, { useState } from "react";
 import "./PostJob.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const PostJob = () => {
   const [title, setTitle] = useState("");
-  const [jobDescription, setJobDescription] = useState(null);
+  const [jobDescription, setJobDescription] = useState<string | null>(null);
   const [jobRequirements, setJobRequirements] = useState("");
   const [tags, setTags] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [contactInfo, setContactInfo] = useState("");
   const [error, setError] = useState("");
 
-  const handleFileChange = (e: React.ChangeEvent<any>) => {
-    const file = e.target.files[0];
-    if (file && file.size <= 16384) {
-      setJobDescription(file);
-      setError("");
-    } else {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return; // If no file selected, return early
+
+    if (file.size > 16384) {
       setError("File size must be 16KB or less.");
+      return;
+    }
+
+    if (file.type !== "text/plain") {
+      setError("Only .txt files are allowed.");
+      return;
+    }
+
+    try {
+      const fileContent = await file.text();
+      setJobDescription(fileContent);
+      setError(""); // Clear error if the upload is successful
+    } catch (err) {
+      setError("Failed to read the file.");
     }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
+
     if (!jobDescription) {
-      setError("Please upload a job description document.");
+      setError("Please upload a job description file.");
       return;
     }
 
+    toast.success("Job posted successfully!");
+
     console.log("Job Posted:", {
+      title,
       jobDescription,
       jobRequirements,
       tags,
@@ -50,6 +69,7 @@ const PostJob = () => {
 
   return (
     <div className='post-job'>
+      <ToastContainer />
       <h2>Post a Job</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -61,16 +81,24 @@ const PostJob = () => {
             required
           />
         </div>
+
         <div>
           <label>Job Description (max 16KB):</label>
           <input
             type='file'
-            accept='.pdf,.doc,.docx'
+            accept='.txt'
             onChange={handleFileChange}
             required
           />
           {error && <p className='error'>{error}</p>}
+          {jobDescription && (
+            <div className='file-preview'>
+              <h4>Uploaded Description:</h4>
+              <pre>{jobDescription}</pre>
+            </div>
+          )}
         </div>
+
         <div>
           <label>Job Requirements:</label>
           <textarea
@@ -79,6 +107,7 @@ const PostJob = () => {
             required
           />
         </div>
+
         <div>
           <label>Tags (comma-separated):</label>
           <input
@@ -88,6 +117,7 @@ const PostJob = () => {
             required
           />
         </div>
+
         <div>
           <label>Company Name:</label>
           <input
@@ -97,6 +127,7 @@ const PostJob = () => {
             required
           />
         </div>
+
         <div>
           <label>Contact Info:</label>
           <input
@@ -106,6 +137,7 @@ const PostJob = () => {
             required
           />
         </div>
+
         <div className='submit-button'>
           <button type='submit' className='post-job-button'>
             <i className='fas fa-paper-plane' />

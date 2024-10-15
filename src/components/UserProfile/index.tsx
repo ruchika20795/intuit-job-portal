@@ -5,9 +5,10 @@ import { UserContext } from "../../App";
 import { UserRoles } from "../../utils/constants";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { User } from "../../utils/types";
+import { User, Project } from "../../utils/types";
 
-const FontAwesomeIcon = require('@fortawesome/react-fontawesome').FontAwesomeIcon;
+const FontAwesomeIcon =
+  require("@fortawesome/react-fontawesome").FontAwesomeIcon;
 
 interface FormErrors {
   name?: string;
@@ -37,8 +38,8 @@ const UserProfile = () => {
   const [email] = useState(user?.email); // Email is read-only
   const [selectedSkills, setSelectedSkills] = useState(user?.skills || []);
   const [github, setGithub] = useState(user?.github);
-  const [projects, setProjects] = useState(
-    user?.projects.map((project) => project.name).join(", ")
+  const [projects, setProjects] = useState<Project[]>(
+    user?.projects || [{ name: "", url: "" }]
   );
   const [errors, setErrors] = useState<FormErrors>({});
 
@@ -68,12 +69,27 @@ const UserProfile = () => {
     setIsEditing(false);
   };
 
+  const handleProjectChange = (
+    index: number,
+    field: keyof Project,
+    value: string
+  ) => {
+    const updatedProjects = [...projects];
+    updatedProjects[index] = { ...updatedProjects[index], [field]: value };
+    setProjects(updatedProjects);
+  };
+
+  const addProject = () => {
+    setProjects([...projects, { name: "", url: "" }]);
+  };
+
   return (
     <div className='user-profile'>
       <div className='user-details'>
         <h2>User Profile</h2>
         {isEditing ? (
           <div>
+            <label>Name:</label>
             <input
               type='text'
               value={name}
@@ -81,6 +97,7 @@ const UserProfile = () => {
               placeholder='Name'
             />
             {errors.name && <p className='error'>{errors.name}</p>}
+            <label>Email:</label>
             <input type='email' value={email} placeholder='Email' disabled />
             <label htmlFor='skills'>Skills:</label>
             <select
@@ -100,18 +117,35 @@ const UserProfile = () => {
               ))}
             </select>
             {errors.skills && <p className='error'>{errors.skills}</p>}
+            <label>Github profile URL:</label>
             <input
               type='text'
               value={github}
               onChange={(e) => setGithub(e.target.value)}
               placeholder='GitHub Profile URL'
             />
-            <input
-              type='text'
-              value={projects}
-              onChange={(e) => setProjects(e.target.value)}
-              placeholder='Projects (comma separated)'
-            />
+            <label>Projects:</label>
+            {projects.map((project, index) => (
+              <div key={index} className='project-input'>
+                <input
+                  type='text'
+                  placeholder='Project Name'
+                  value={project.name}
+                  onChange={(e) =>
+                    handleProjectChange(index, "name", e.target.value)
+                  }
+                />
+                <input
+                  type='text'
+                  placeholder='Project Link'
+                  value={project.url}
+                  onChange={(e) =>
+                    handleProjectChange(index, "url", e.target.value)
+                  }
+                />
+              </div>
+            ))}
+            <button onClick={addProject}>Add Project</button>
             <div className='edit-actions-cta'>
               <button onClick={handleSave}>Save</button>
               <button onClick={handleCancel}>Cancel</button>
@@ -134,14 +168,23 @@ const UserProfile = () => {
                 {github}
               </a>
             </p>
+            <label>Projects:</label>
             {projects.length > 0 ? (
               <React.Fragment>
                 <p>
                   <strong>Projects:</strong>
                 </p>
                 <ul>
-                  {projects.split(",").map((project, index) => (
-                    <li key={index}>{project.trim()}</li>
+                  {projects.map((project, index) => (
+                    <li key={index}>
+                      <a
+                        href={project.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        {project.name}
+                      </a>
+                    </li>
                   ))}
                 </ul>
               </React.Fragment>
