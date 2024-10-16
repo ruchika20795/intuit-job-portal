@@ -100,6 +100,7 @@ const ViewJobs = () => {
             <th>Job Title</th>
             <th>Company</th>
             <th>Tags</th>
+            <th>{userRole === UserRoles.Freelancer ? "Posted on" : "Created on"}</th>
             <th>
               {userRole === UserRoles.Freelancer ? "Actions" : "Applications"}
             </th>
@@ -119,6 +120,7 @@ const ViewJobs = () => {
                 </td>
                 <td>{job.companyName}</td>
                 <td>{job.tags.join(", ")}</td>
+                <td>{job.createdAt}</td>
                 <td>
                   {userRole === UserRoles.Freelancer ? (
                     <button onClick={() => applyForJob(job)}>Apply</button>

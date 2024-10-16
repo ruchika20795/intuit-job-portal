@@ -41,6 +41,12 @@ export const JobDetails = () => {
         <strong>Tags:</strong> {jobDetails.tags.join(", ")}
       </p>
       <p>
+        <strong>
+          {userRole === UserRoles.Freelancer ? "Posted on" : "Created on"}:
+        </strong>{" "}
+        {jobDetails.createdAt}
+      </p>
+      <p>
         <strong>Contact Info:</strong> {jobDetails.contactInfo}
       </p>
       {userRole === UserRoles.Freelancer && (
