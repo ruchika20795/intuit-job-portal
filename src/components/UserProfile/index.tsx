@@ -85,121 +85,123 @@ const UserProfile = () => {
 
   return (
     <div className='user-profile'>
-      <div className='user-details'>
-        <h2>User Profile</h2>
-        {isEditing ? (
-          <div>
-            <label>Name:</label>
-            <input
-              type='text'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder='Name'
-            />
-            {errors.name && <p className='error'>{errors.name}</p>}
-            <label>Email:</label>
-            <input type='email' value={email} placeholder='Email' disabled />
-            <label htmlFor='skills'>Skills:</label>
-            <select
-              id='skills'
-              multiple
-              value={selectedSkills}
-              onChange={(e) =>
-                setSelectedSkills(
-                  [...e.target.selectedOptions].map((option) => option.value)
-                )
-              }
-            >
-              {skillsOptions.map((skill) => (
-                <option key={skill} value={skill}>
-                  {skill}
-                </option>
+      <h2>User Profile</h2>
+      <div className='details-content'>
+        <div className='user-details'>
+          {isEditing ? (
+            <div>
+              <label>Name:</label>
+              <input
+                type='text'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder='Name'
+              />
+              {errors.name && <p className='error'>{errors.name}</p>}
+              <label>Email:</label>
+              <input type='email' value={email} placeholder='Email' disabled />
+              <label htmlFor='skills'>Skills:</label>
+              <select
+                id='skills'
+                multiple
+                value={selectedSkills}
+                onChange={(e) =>
+                  setSelectedSkills(
+                    [...e.target.selectedOptions].map((option) => option.value)
+                  )
+                }
+              >
+                {skillsOptions.map((skill) => (
+                  <option key={skill} value={skill}>
+                    {skill}
+                  </option>
+                ))}
+              </select>
+              {errors.skills && <p className='error'>{errors.skills}</p>}
+              <label>Github profile URL:</label>
+              <input
+                type='text'
+                value={github}
+                onChange={(e) => setGithub(e.target.value)}
+                placeholder='GitHub Profile URL'
+              />
+              <label>Projects:</label>
+              {projects.map((project, index) => (
+                <div key={index} className='project-input'>
+                  <input
+                    type='text'
+                    placeholder='Project Name'
+                    value={project.name}
+                    onChange={(e) =>
+                      handleProjectChange(index, "name", e.target.value)
+                    }
+                  />
+                  <input
+                    type='text'
+                    placeholder='Project Link'
+                    value={project.url}
+                    onChange={(e) =>
+                      handleProjectChange(index, "url", e.target.value)
+                    }
+                  />
+                </div>
               ))}
-            </select>
-            {errors.skills && <p className='error'>{errors.skills}</p>}
-            <label>Github profile URL:</label>
-            <input
-              type='text'
-              value={github}
-              onChange={(e) => setGithub(e.target.value)}
-              placeholder='GitHub Profile URL'
-            />
-            <label>Projects:</label>
-            {projects.map((project, index) => (
-              <div key={index} className='project-input'>
-                <input
-                  type='text'
-                  placeholder='Project Name'
-                  value={project.name}
-                  onChange={(e) =>
-                    handleProjectChange(index, "name", e.target.value)
-                  }
-                />
-                <input
-                  type='text'
-                  placeholder='Project Link'
-                  value={project.url}
-                  onChange={(e) =>
-                    handleProjectChange(index, "url", e.target.value)
-                  }
-                />
+              <button onClick={addProject}>Add Project</button>
+              <div className='edit-actions-cta'>
+                <button onClick={handleSave}>Save</button>
+                <button onClick={handleCancel}>Cancel</button>
               </div>
-            ))}
-            <button onClick={addProject}>Add Project</button>
-            <div className='edit-actions-cta'>
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleCancel}>Cancel</button>
             </div>
-          </div>
-        ) : (
-          <div>
-            <p>
-              <strong>Name:</strong> {name}
-            </p>
-            <p>
-              <strong>Email:</strong> {email}
-            </p>
-            <p>
-              <strong>Skills:</strong> {selectedSkills.join(", ")}
-            </p>
-            <p>
-              <strong>GitHub Profile:</strong>{" "}
-              <a href={github} target='_blank' rel='noopener noreferrer'>
-                {github}
-              </a>
-            </p>
-            <label>Projects:</label>
-            {projects.length > 0 ? (
-              <React.Fragment>
-                <p>
-                  <strong>Projects:</strong>
-                </p>
-                <ul>
-                  {projects.map((project, index) => (
-                    <li key={index}>
-                      <a
-                        href={project.url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        {project.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </React.Fragment>
-            ) : null}
-            {userRole === UserRoles.Freelancer && (
-              <button onClick={() => setIsEditing(true)}>Edit Profile</button>
-            )}
+          ) : (
+            <div>
+              <p>
+                <strong>Name:</strong> {name}
+              </p>
+              <p>
+                <strong>Email:</strong> {email}
+              </p>
+              <p>
+                <strong>Skills:</strong> {selectedSkills.join(", ")}
+              </p>
+              <p>
+                <strong>GitHub Profile:</strong>{" "}
+                <a href={github} target='_blank' rel='noopener noreferrer'>
+                  {github}
+                </a>
+              </p>
+              <label>Projects:</label>
+              {projects.length > 0 ? (
+                <React.Fragment>
+                  <p>
+                    <strong>Projects:</strong>
+                  </p>
+                  <ul>
+                    {projects.map((project, index) => (
+                      <li key={index}>
+                        <a
+                          href={project.url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          {project.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </React.Fragment>
+              ) : null}
+              {userRole === UserRoles.Freelancer && (
+                <button onClick={() => setIsEditing(true)}>Edit Profile</button>
+              )}
+            </div>
+          )}
+        </div>
+        {!isEditing && (
+          <div className='user-icon'>
+            <FontAwesomeIcon icon={faUserCircle} size='6x' />
           </div>
         )}
       </div>
-      {!isEditing && (
-        <div className='user-icon'>
-          <FontAwesomeIcon icon={faUserCircle} size='6x' />
-        </div>
-      )}
     </div>
   );
 };

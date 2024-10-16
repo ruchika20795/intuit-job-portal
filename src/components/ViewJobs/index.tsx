@@ -48,6 +48,10 @@ const ViewJobs = () => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
       setInputPage(""); // Clear input field on valid page change
+    } else {
+      toast.error(
+        `Invalid page number. Please enter a value between 1 and ${totalPages}.`
+      );
     }
   };
 
@@ -65,7 +69,11 @@ const ViewJobs = () => {
 
   const jumpToPage = () => {
     const page = parseInt(inputPage);
-    if (!isNaN(page)) handlePageChange(page);
+    if (!isNaN(page)) {
+      handlePageChange(page);
+    } else {
+      toast.error("Please enter a valid number.");
+    }
   };
 
   const viewApplications = (job: Job) => {
@@ -100,7 +108,9 @@ const ViewJobs = () => {
             <th>Job Title</th>
             <th>Company</th>
             <th>Tags</th>
-            <th>{userRole === UserRoles.Freelancer ? "Posted on" : "Created on"}</th>
+            <th>
+              {userRole === UserRoles.Freelancer ? "Posted on" : "Created on"}
+            </th>
             <th>
               {userRole === UserRoles.Freelancer ? "Actions" : "Applications"}
             </th>
@@ -147,16 +157,10 @@ const ViewJobs = () => {
             Previous
           </button>
 
-          {/* Render only the first 3 page buttons */}
-          {[...Array(Math.min(3, totalPages)).keys()].map((number) => (
-            <button
-              key={number + 1}
-              onClick={() => handlePageChange(number + 1)}
-              className={currentPage === number + 1 ? "active" : ""}
-            >
-              {number + 1}
-            </button>
-          ))}
+          {/* Display the current page number */}
+          <span className='current-page'>
+            Page {currentPage} of {totalPages}
+          </span>
 
           <button onClick={goToNextPage} disabled={currentPage === totalPages}>
             Next

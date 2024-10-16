@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,6 +11,7 @@ import { Job } from "../../utils/types";
 export const JobDetails = () => {
   const { state } = useLocation();
   const { userRole } = useContext(UserContext);
+  const navigate = useNavigate();
   const [jobDetails, setJobDetails] = useState<Job | null>(null);
 
   useEffect(() => {
@@ -24,6 +26,12 @@ export const JobDetails = () => {
   const applyForJob = () => {
     // Show success toast message
     toast.success(`Successfully applied for ${jobDetails.title}`);
+  };
+
+  const viewApplications = (job: Job) => {
+    navigate(`/job/${job.id}/applications`, {
+      state: { applications: job.applications },
+    });
   };
 
   return (
@@ -49,9 +57,13 @@ export const JobDetails = () => {
       <p>
         <strong>Contact Info:</strong> {jobDetails.contactInfo}
       </p>
-      {userRole === UserRoles.Freelancer && (
+      {userRole === UserRoles.Freelancer ? (
         <button className='apply-button' onClick={applyForJob}>
           Apply
+        </button>
+      ) : (
+        <button onClick={() => viewApplications(jobDetails)}>
+          See applicants
         </button>
       )}
     </div>

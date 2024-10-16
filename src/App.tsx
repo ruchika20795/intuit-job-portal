@@ -44,6 +44,9 @@ function App() {
         ) : (
           <JobPortal jobs={jobs} addJob={addJob} />
         )}
+        <div className='footer'>
+          <p>Job Portal © 2024</p>
+        </div>
       </div>
     </Router>
   );

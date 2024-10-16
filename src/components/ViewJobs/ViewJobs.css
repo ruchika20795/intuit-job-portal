@@ -28,12 +28,20 @@ body.dark {
   --link-text-color: #66b2ff;
 }
 
-/* Component Styles */
+/* Global Styles for Both Themes */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
 .posted-jobs {
   background-color: var(--bg-color);
   color: var(--text-color);
   padding: 2rem;
-  min-height: 100vh;
+  height: 100%;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -108,16 +116,17 @@ tr:hover td {
 .pagination button {
   padding: 8px 12px;
   border: 1px solid #007bff;
-  background-color: white;
-  color: #007bff;
+  background-color: var(--pagination-button-bg);
+  color: var(--pagination-button-text);
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s;
 }
 
 .pagination button:hover {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--pagination-button-hover-bg);
+  color: var(--pagination-button-text);
 }
 
 /* Active pagination button */
@@ -143,42 +152,32 @@ tr:hover td {
 .jump-to-page input {
   width: 60px;
   padding: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   border-radius: 4px;
   text-align: center;
   font-size: 14px;
   margin: 0 10px 0 0;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Jump to page button */
 .jump-to-page button {
   padding: 6px 10px;
   border: 1px solid #007bff;
-  background-color: white;
-  color: #007bff;
+  background-color: var(--pagination-button-bg);;
+  color: var(--pagination-button-text);;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s;
 }
 
 .jump-to-page button:hover {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--pagination-button-hover-bg);
+  color: var(--pagination-button-text);;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-th,
-td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
+/* Button styles */
 button {
   background-color: #4a90e2;
   color: white;
@@ -188,6 +187,12 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 button:hover {
   background-color: #357abd;
 }
+
+.current-page {
+    font-weight: bold;
+    margin: 0 10px;
+  }
