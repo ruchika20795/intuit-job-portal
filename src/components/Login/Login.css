@@ -23,6 +23,9 @@ body.dark {
   margin-bottom: 20px;
   padding: 15px;
   background-color: var(--bg-color);
+  display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Login Container Styles */
@@ -96,7 +99,8 @@ body.dark {
 
 .role-selection {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  width: 100%;
 }
 
 .role-selection label {
@@ -113,7 +117,7 @@ body.dark {
 }
 
 .login-input {
-  width: 100%;
+  width: 40%;
   padding: 10px;
   margin-bottom: 20px;
   background-color: var(--input-bg);

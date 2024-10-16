@@ -76,6 +76,7 @@ const PostJob = () => {
           <label>Job Title:</label>
           <input
             type='text'
+            className='post-job-input'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -86,6 +87,7 @@ const PostJob = () => {
           <label>Job Description (max 16KB):</label>
           <input
             type='file'
+            className='post-job-input'
             accept='.txt'
             onChange={handleFileChange}
             required
@@ -102,6 +104,7 @@ const PostJob = () => {
         <div>
           <label>Job Requirements:</label>
           <textarea
+            className='post-job-input'
             value={jobRequirements}
             onChange={(e) => setJobRequirements(e.target.value)}
             required
@@ -112,6 +115,7 @@ const PostJob = () => {
           <label>Tags (comma-separated):</label>
           <input
             type='text'
+            className='post-job-input'
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             required
@@ -122,6 +126,7 @@ const PostJob = () => {
           <label>Company Name:</label>
           <input
             type='text'
+            className='post-job-input'
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
             required
@@ -132,6 +137,7 @@ const PostJob = () => {
           <label>Contact Info:</label>
           <input
             type='text'
+            className='post-job-input'
             value={contactInfo}
             onChange={(e) => setContactInfo(e.target.value)}
             required

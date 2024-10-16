@@ -48,9 +48,7 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="file"],
-textarea {
+.post-job-input {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid var(--input-border);
@@ -60,8 +58,7 @@ textarea {
   box-sizing: border-box;
 }
 
-input[type="text"]:focus,
-textarea:focus {
+.post-job-input:focus {
   border-color: var(--input-focus-border);
   outline: none;
   box-sizing: border-box;

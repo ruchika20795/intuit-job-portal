@@ -51,7 +51,7 @@ const Login = (props: LoginProps) => {
       <h2>
         <i className='fas fa-user-circle icon'></i>Login
       </h2>
-      <label className='role-selection'>
+      <div className='role-selection'>
         <select
           className='login-input'
           value={role}
@@ -62,7 +62,7 @@ const Login = (props: LoginProps) => {
           <option value={UserRoles.Employer}>Employer</option>
         </select>
         {errors.role && <span className='error'>{errors.role}</span>}
-      </label>
+      </div>
       <input
         className='login-input'
         type='text'

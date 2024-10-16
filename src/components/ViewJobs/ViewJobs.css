@@ -44,7 +44,7 @@ h2 {
   transition: color 0.3s;
 }
 
-input[type="text"] {
+.search-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { postedJobs } from "../../utils/mockPostedJobs";
+import { postedJobs1 } from "../../utils/mock_jobs_data";
 import { UserContext } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
 import { UserRoles } from "../../utils/constants";
@@ -27,7 +27,7 @@ const ViewJobs = () => {
     };
   }, [filter]);
 
-  const filteredJobs = postedJobs.filter((job) => {
+  const filteredJobs = postedJobs1.filter((job) => {
     const searchTerm = debouncedFilter.toLowerCase();
     const isTitleMatch = job.title.toLowerCase().includes(searchTerm);
     const isTagMatch = job.tags.some((tag) =>
@@ -79,6 +79,7 @@ const ViewJobs = () => {
       <h2>{userRole === UserRoles.Freelancer ? "View Jobs" : "Posted Jobs"}</h2>
       <input
         type='text'
+        className='search-input'
         placeholder='Filter by title or tags...'
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
