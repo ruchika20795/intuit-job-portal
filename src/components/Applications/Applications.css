@@ -85,30 +85,61 @@ button:hover {
   background-color: var(--button-hover-bg);
 }
 
-/* Pagination Styles */
+/* Pagination container */
 .pagination {
   display: flex;
-  justify-content: end;
-  gap: 8px;
-  margin-top: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
 
+/* Pagination buttons */
 .pagination button {
-  background-color: var(--pagination-inactive-bg);
-  color: var(--pagination-inactive-text);
-  border: none;
   padding: 8px 12px;
+  border: 1px solid #007bff;
+  background-color: white;
+  color: #007bff;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
 }
 
-.pagination button.active {
-  background-color: var(--pagination-active-bg);
-  color: var(--pagination-active-text);
+.pagination button:hover {
+  background-color: #007bff;
+  color: white;
 }
 
-.pagination button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* Active button styling */
+.pagination .active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Jump-to-page input and button */
+.jump-to-page {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.jump-to-page input {
+  width: 60px;
+  padding: 6px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.jump-to-page button {
+  padding: 6px 10px;
+  border: 1px solid #007bff;
+  background-color: white;
+  color: #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.jump-to-page button:hover {
+  background-color: #007bff;
+  color: white;
 }

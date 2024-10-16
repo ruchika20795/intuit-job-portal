@@ -7,8 +7,13 @@ import { Application } from "../../utils/types";
 const Applications = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  // State to hold applications
+
   const [applications, setApplications] = useState<Application[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jumpToPage, setJumpToPage] = useState("");
+
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(applications.length / itemsPerPage);
 
   useEffect(() => {
     if (state && state.applications) {
@@ -16,10 +21,6 @@ const Applications = () => {
     }
   }, [state]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-
-  const totalPages = Math.ceil(applications.length / itemsPerPage);
   const indexOfLastApplication = currentPage * itemsPerPage;
   const indexOfFirstApplication = indexOfLastApplication - itemsPerPage;
   const currentApplications = applications.slice(
@@ -37,6 +38,16 @@ const Applications = () => {
 
   const goToNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const handleJumpToPage = () => {
+    const page = parseInt(jumpToPage);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      setJumpToPage("");
+    } else {
+      alert(`Please enter a valid page number between 1 and ${totalPages}.`);
+    }
   };
 
   const viewProfile = (applicantId: number) => {
@@ -83,13 +94,14 @@ const Applications = () => {
                 Previous
               </button>
 
-              {[...Array(totalPages).keys()].map((number) => (
+              {/* Render only the first 3 pages */}
+              {Array.from({ length: Math.min(3, totalPages) }, (_, index) => (
                 <button
-                  key={number + 1}
-                  onClick={() => handlePageChange(number + 1)}
-                  className={currentPage === number + 1 ? "active" : ""}
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={currentPage === index + 1 ? "active" : ""}
                 >
-                  {number + 1}
+                  {index + 1}
                 </button>
               ))}
 
@@ -99,6 +111,19 @@ const Applications = () => {
               >
                 Next
               </button>
+
+              {/* Jump to Page Input */}
+              <div className='jump-to-page'>
+                <input
+                  type='number'
+                  value={jumpToPage}
+                  onChange={(e) => setJumpToPage(e.target.value)}
+                  placeholder='Page #'
+                  min='1'
+                  max={totalPages}
+                />
+                <button onClick={handleJumpToPage}>Go</button>
+              </div>
             </div>
           )}
         </>

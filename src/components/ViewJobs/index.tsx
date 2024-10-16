@@ -11,9 +11,11 @@ import { Job } from "../../utils/types";
 const ViewJobs = () => {
   const { userName, userRole } = useContext(UserContext);
   const navigate = useNavigate();
+
   const [filter, setFilter] = useState("");
   const [debouncedFilter, setDebouncedFilter] = useState(filter);
   const [currentPage, setCurrentPage] = useState(1);
+  const [inputPage, setInputPage] = useState(""); // Store input page number
   const itemsPerPage = 5;
 
   // Debounce for search filter
@@ -21,10 +23,7 @@ const ViewJobs = () => {
     const handler = setTimeout(() => {
       setDebouncedFilter(filter);
     }, 300);
-
-    return () => {
-      clearTimeout(handler);
-    };
+    return () => clearTimeout(handler);
   }, [filter]);
 
   const filteredJobs = postedJobs1.filter((job) => {
@@ -36,9 +35,8 @@ const ViewJobs = () => {
 
     if (userRole === UserRoles.Employer) {
       return job.createdBy === userName && (isTitleMatch || isTagMatch);
-    } else {
-      return isTitleMatch || isTagMatch;
     }
+    return isTitleMatch || isTagMatch;
   });
 
   const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
@@ -47,7 +45,10 @@ const ViewJobs = () => {
   const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      setInputPage(""); // Clear input field on valid page change
+    }
   };
 
   const goToPreviousPage = () => {
@@ -58,6 +59,15 @@ const ViewJobs = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
   };
 
+  const handleInputPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPage(e.target.value);
+  };
+
+  const jumpToPage = () => {
+    const page = parseInt(inputPage);
+    if (!isNaN(page)) handlePageChange(page);
+  };
+
   const viewApplications = (job: Job) => {
     navigate(`/job/${job.id}/applications`, {
       state: { applications: job.applications },
@@ -65,7 +75,6 @@ const ViewJobs = () => {
   };
 
   const applyForJob = (job: Job) => {
-    // Show success toast message
     toast.success(`Successfully applied for ${job.title}`);
   };
 
@@ -83,6 +92,7 @@ const ViewJobs = () => {
         placeholder='Filter by title or tags...'
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
+        disabled={currentJobs.length === 0}
       />
       <table>
         <thead>
@@ -96,37 +106,47 @@ const ViewJobs = () => {
           </tr>
         </thead>
         <tbody>
-          {currentJobs.map((job) => (
-            <tr key={job.id}>
-              <td>
-                <span className='link-text' onClick={() => goToJobDetails(job)}>
-                  {job.title}
-                </span>
-              </td>
-              <td>{job.companyName}</td>
-              <td>{job.tags.join(", ")}</td>
-              <td>
-                {userRole === UserRoles.Freelancer ? (
-                  <button onClick={() => applyForJob(job)}>Apply</button>
-                ) : (
+          {currentJobs.length > 0 ? (
+            currentJobs.map((job) => (
+              <tr key={job.id}>
+                <td>
                   <span
                     className='link-text'
-                    onClick={() => viewApplications(job)}
+                    onClick={() => goToJobDetails(job)}
                   >
-                    {job.applications.length}
+                    {job.title}
                   </span>
-                )}
-              </td>
-            </tr>
-          ))}
+                </td>
+                <td>{job.companyName}</td>
+                <td>{job.tags.join(", ")}</td>
+                <td>
+                  {userRole === UserRoles.Freelancer ? (
+                    <button onClick={() => applyForJob(job)}>Apply</button>
+                  ) : (
+                    <span
+                      className='link-text'
+                      onClick={() => viewApplications(job)}
+                    >
+                      {job.applications.length}
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <p>No jobs found.</p>
+          )}
         </tbody>
       </table>
+
       {totalPages > 1 && (
         <div className='pagination'>
           <button onClick={goToPreviousPage} disabled={currentPage === 1}>
             Previous
           </button>
-          {[...Array(totalPages).keys()].map((number) => (
+
+          {/* Render only the first 3 page buttons */}
+          {[...Array(Math.min(3, totalPages)).keys()].map((number) => (
             <button
               key={number + 1}
               onClick={() => handlePageChange(number + 1)}
@@ -135,9 +155,22 @@ const ViewJobs = () => {
               {number + 1}
             </button>
           ))}
+
           <button onClick={goToNextPage} disabled={currentPage === totalPages}>
             Next
           </button>
+
+          <div className='jump-to-page'>
+            <input
+              type='number'
+              min='1'
+              max={totalPages}
+              placeholder='Go to...'
+              value={inputPage}
+              onChange={handleInputPageChange}
+            />
+            <button onClick={jumpToPage}>Go</button>
+          </div>
         </div>
       )}
     </div>
