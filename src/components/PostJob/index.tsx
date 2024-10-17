@@ -73,8 +73,9 @@ const PostJob = () => {
       <h2>Post a Job</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Job Title:</label>
+          <label htmlFor="job-title">Job Title:</label>
           <input
+            id="job-title"
             type='text'
             className='post-job-input'
             value={title}
@@ -84,8 +85,9 @@ const PostJob = () => {
         </div>
 
         <div>
-          <label>Job Description (max 16KB):</label>
+          <label htmlFor="desc-file">Job Description (max 16KB):</label>
           <input
+            id="desc-file"
             type='file'
             className='post-job-input'
             accept='.txt'
@@ -102,8 +104,9 @@ const PostJob = () => {
         </div>
 
         <div>
-          <label>Job Requirements:</label>
+          <label htmlFor="job-req">Job Requirements:</label>
           <textarea
+            id="job-req"
             className='post-job-input'
             value={jobRequirements}
             onChange={(e) => setJobRequirements(e.target.value)}
@@ -112,8 +115,9 @@ const PostJob = () => {
         </div>
 
         <div>
-          <label>Tags (comma-separated):</label>
+          <label htmlFor="tags-input">Tags (comma-separated):</label>
           <input
+            id="tags-input"
             type='text'
             className='post-job-input'
             value={tags}
@@ -123,8 +127,9 @@ const PostJob = () => {
         </div>
 
         <div>
-          <label>Company Name:</label>
+          <label htmlFor="company-name">Company Name:</label>
           <input
+            id="company-name"
             type='text'
             className='post-job-input'
             value={companyName}
@@ -134,8 +139,9 @@ const PostJob = () => {
         </div>
 
         <div>
-          <label>Contact Info:</label>
+          <label htmlFor="contact-info">Contact Info:</label>
           <input
+            id="contact-info"
             type='text'
             className='post-job-input'
             value={contactInfo}

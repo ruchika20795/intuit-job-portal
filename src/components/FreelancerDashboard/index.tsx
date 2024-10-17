@@ -14,7 +14,7 @@ const FreelancerDashboard = () => {
   };
 
   return (
-    <div className='employer'>
+    <div className='freelancer'>
       <h2>Freelancer Dashboard</h2>
       <div className='cards'>
         <div className='card' onClick={() => navigate("/view-jobs")}>
